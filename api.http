@@ -1,27 +1,29 @@
 GET http://localhost:8080/
 
-###
+### ROTAS DE USUÁRIOS
 
-GET http://localhost:8080/alunos
+GET http://localhost:8080/usuarios
 
 ### 
 
-POST http://localhost:8080/alunos
+POST http://localhost:8080/usuarios
 Content-type: application/json
 
 {
-    "nome": "Pedro"
+    "email": "someuser@gmail.com",
+    "senha": "changeit"
 }
 
 ### Edita um aluno
 
-PUT http://localhost:8080/alunos/?id=[ID_ALUNO]
+PUT http://localhost:8080/usuarios/?id=[ID USUARIO]
 Content-type: application/json
 
 {
-    "nome": "João"
+    "email": "someuser@gmail.com",
+    "senha": "novasenha"
 }
 
 ### Remnover um aluno por ID
 
-DELETE http://localhost:8080/alunos/?id=[ID_ALUNO]
+DELETE http://localhost:8080/usuarios/?id=[ID USUARIO]
