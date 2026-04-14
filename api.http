@@ -1,0 +1,27 @@
+GET http://localhost:8080/
+
+###
+
+GET http://localhost:8080/alunos
+
+### 
+
+POST http://localhost:8080/alunos
+Content-type: application/json
+
+{
+    "nome": "Pedro"
+}
+
+### Edita um aluno
+
+PUT http://localhost:8080/alunos/?id=[ID_ALUNO]
+Content-type: application/json
+
+{
+    "nome": "João"
+}
+
+### Remnover um aluno por ID
+
+DELETE http://localhost:8080/alunos/?id=[ID_ALUNO]
