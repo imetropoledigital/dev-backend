@@ -1,17 +1,39 @@
-const randomWords = require('random-words');
-const fs = require('fs');
+const http = require('http')
 
-console.log(randomWords());
+const server = http.createServer((req, res) => {
+    console.log(req.url)
 
-//leitura síncrona
-const data = fs.readFileSync('./tmp.txt', {encoding: 'utf-8', flag: 'r'})
-console.log(data)
-console.log('Aguardou terminar de ler para executar aqui!')
-
-//leitura assíncrona
-fs.readFile('./tmp.txt', {encoding: 'utf-8', flag: 'r'}, function (err, data){
-    if (!err){
-        console.log(data)
+    switch (req.url) {
+        case '/aluno':
+            alunoRoute(req, res)
+            break;
+        default:
+            res.writeHead(404, { 'Content-Type': "text/json" })
+            res.write(JSON.stringify({ msg: "Path não encontrado" }))
+            res.end()
     }
 })
-console.log('Executou aqui! Provavelmente essa linha imprimiu antes da leitura do arquivo terminar!')
+
+server.listen(8080, () => {
+    console.log('Servidor pronto na porta 8080!')
+})
+
+function alunoRoute(req, res) {
+    switch (req.method){
+        case 'GET':
+            res.writeHead(200, { 'Content-Type': "text/json" })
+            res.write(JSON.stringify({ alunos: ["Gustavo", "João"]  }))
+            res.end()
+            break;
+        case 'POST':
+            res.writeHead(200, { 'Content-Type': "text/json" })
+            res.write(JSON.stringify({ msg: "Aluno criado" }))
+            res.end()
+            break
+        default:
+            res.writeHead(400, { 'Content-Type': "text/json" })
+            res.write(JSON.stringify({ msg: "Operação não suportada!" }))
+            res.end()
+            break
+    }
+}
