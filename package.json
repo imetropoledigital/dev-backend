@@ -1,5 +1,5 @@
 {
-  "name": "devbackend",
+  "name": "dev-backend",
   "version": "1.0.0",
   "description": "Exemplo de aula da disciplina de desenvolvimento backend",
   "main": "index.js",
