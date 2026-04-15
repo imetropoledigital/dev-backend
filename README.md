@@ -2,9 +2,7 @@
 
 Projeto de exemplo para a disciplina de **Desenvolvimento Backend** do IMD/UFRN.
 
-A aplicação é uma API REST simples construída com **Node.js** e **Express**, com armazenamento em memória (sem banco de dados). O objetivo é ilustrar conceitos como roteamento, middlewares, validação de dados e organização de projetos backend.
-
-> **Atenção:** por ser um projeto didático, os dados são armazenados apenas em memória. Ao reiniciar o servidor todos os registros são perdidos.
+A aplicação é uma API REST simples construída com **Node.js** e **Express**, utilizando **Sequelize** como ORM e **SQLite** como banco de dados. O objetivo é ilustrar conceitos como roteamento, middlewares, validação de dados, models, migrations e organização de projetos backend.
 
 ---
 
@@ -12,6 +10,11 @@ A aplicação é uma API REST simples construída com **Node.js** e **Express**,
 
 - [Node.js](https://nodejs.org/) v14+
 - npm
+- [Sequelize CLI](https://github.com/sequelize/cli) (opcional, para rodar migrations manualmente)
+
+```bash
+npm install -g sequelize-cli
+```
 
 ## Instalação
 

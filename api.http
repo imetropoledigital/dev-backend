@@ -36,11 +36,6 @@ GET http://localhost:8080/posts
 
 ###
 
-# Buscar uma postagem pelo ID
-GET http://localhost:8080/posts/[ID DO POST]
-
-###
-
 # Criar uma nova postagem
 POST http://localhost:8080/posts
 Content-type: application/json
@@ -50,7 +45,10 @@ Content-type: application/json
     "texto": "Este é o conteúdo da minha primeira postagem no sistema."
 }
 
-###
+### Buscar uma postagem pelo ID
+GET http://localhost:8080/posts/[ID DO POST]
+
+
 
 # Criar uma postagem com título muito curto (deve retornar erro 400 - validação)
 POST http://localhost:8080/posts
