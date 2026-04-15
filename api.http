@@ -27,3 +27,62 @@ Content-type: application/json
 ### Remnover um aluno por ID
 
 DELETE http://localhost:8080/usuarios/?id=[ID USUARIO]
+
+
+### ROTAS DE POSTAGENS
+
+# Listar todas as postagens
+GET http://localhost:8080/posts
+
+###
+
+# Buscar uma postagem pelo ID
+GET http://localhost:8080/posts/[ID DO POST]
+
+###
+
+# Criar uma nova postagem
+POST http://localhost:8080/posts
+Content-type: application/json
+
+{
+    "titulo": "Minha primeira postagem",
+    "texto": "Este é o conteúdo da minha primeira postagem no sistema."
+}
+
+###
+
+# Criar uma postagem com título muito curto (deve retornar erro 400 - validação)
+POST http://localhost:8080/posts
+Content-type: application/json
+
+{
+    "titulo": "Oi",
+    "texto": "Título com menos de 5 caracteres deve ser rejeitado pelo middleware."
+}
+
+###
+
+# Criar uma postagem sem campo obrigatório (deve retornar erro 400 - validação)
+POST http://localhost:8080/posts
+Content-type: application/json
+
+{
+    "titulo": "Postagem sem texto"
+}
+
+###
+
+# Editar uma postagem existente
+PUT http://localhost:8080/posts/?id=[ID DO POST]
+Content-type: application/json
+
+{
+    "titulo": "Título atualizado da postagem",
+    "texto": "Conteúdo atualizado após a edição."
+}
+
+###
+
+# Deletar uma postagem pelo ID
+DELETE http://localhost:8080/posts/?id=[ID DO POST]
