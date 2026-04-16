@@ -1,29 +1,29 @@
 const express = require('express')
 const router = express.Router()
 const postMid = require('../middlewares/validarPost.middleware')
-const { Post } = require('../models')
+const { Posts } = require('../models')
 
 router.post('/', postMid)
 router.put('/', postMid)
 
 router.get('/', async (req, res) => {
-    const posts = await Post.findAll()
+    const posts = await Posts.findAll()
     res.json({posts: posts})
 })
 
 router.get('/:id', async (req, res) => {
-    const post = await Post.findByPk(req.params.id)
+    const post = await Posts.findByPk(req.params.id)
     res.json({posts: post})
 })
 
 router.post('/', async (req, res) => {
-    const post = await Post.create(req.body)
+    const post = await Posts.create(req.body)
     res.json({msg: "Post adicionado com sucesso!"})
 })
 
 router.delete('/', async (req, res) => {
     const id = req.query.id
-    const post = await Post.findByPk(id)
+    const post = await Posts.findByPk(id)
     if (post){
         await post.destroy()
         res.json({msg: "Post deletado com sucesso!"})
@@ -34,7 +34,7 @@ router.delete('/', async (req, res) => {
 
 router.put('/', async (req, res) => {
     const id = req.query.id
-    const post = await Post.findByPk(id)
+    const post = await Posts.findByPk(id)
     if (post){
         post.titulo = req.body.titulo
         post.texto = req.body.texto
