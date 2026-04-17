@@ -12,11 +12,6 @@ A aplicação é uma API REST simples construída com **Node.js** e **Express**,
 
 - [Node.js](https://nodejs.org/) v14+
 - npm
-- [Sequelize CLI](https://github.com/sequelize/cli) (opcional, para rodar migrations manualmente)
-
-```bash
-npm install -g sequelize-cli
-```
 
 ## Instalação
 
