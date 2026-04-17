@@ -5,7 +5,7 @@
     "database": "bend",
     "host": "127.0.0.1",
     "dialect": "sqlite",
-    "storage": "≈≈"
+    "storage": "./db/dbend.sqlite"
   },
   "test": {
     "username": "root",
