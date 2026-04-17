@@ -2,19 +2,9 @@
 
 GET http://localhost:8080/
 
-###
-
 ### Listar todos os usuários
 
 GET http://localhost:8080/usuarios
-
-###
-
-### Buscar usuário por ID
-
-GET http://localhost:8080/usuarios/[ID_USUARIO]
-
-###
 
 ### Criar um usuário
 
@@ -26,7 +16,9 @@ Content-Type: application/json
     "senha": "123456"
 }
 
-###
+### Buscar usuário por ID
+
+GET http://localhost:8080/usuarios/[ID_USUARIO]
 
 ### Atualizar um usuário
 
@@ -38,8 +30,38 @@ Content-Type: application/json
     "senha": "novaSenha"
 }
 
-###
-
 ### Deletar um usuário
 
 DELETE http://localhost:8080/usuarios/?id=[ID_USUARIO]
+
+### Listar todos os posts
+
+GET http://localhost:8080/posts
+
+### Criar um post
+
+POST http://localhost:8080/posts
+Content-Type: application/json
+
+{
+    "titulo": "Meu primeiro post",
+    "texto": "Conteúdo do post aqui."
+}
+
+### Buscar post por ID
+
+GET http://localhost:8080/posts/[ID_POST]
+
+### Atualizar um post
+
+PUT http://localhost:8080/posts/?id=[ID_POST]
+Content-Type: application/json
+
+{
+    "titulo": "Título atualizado",
+    "texto": "Conteúdo atualizado."
+}
+
+### Deletar um post
+
+DELETE http://localhost:8080/posts/?id=[ID_POST]

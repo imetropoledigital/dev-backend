@@ -58,9 +58,11 @@ dev-backend/
 │   ├── usuario.rota.js               # Rotas de /usuarios
 │   └── post.rota.js                  # Rotas de /posts
 ├── middleware/
-│   └── validarUsuario.middleware.js  # Valida o corpo das requisições de usuário
+│   ├── validarUsuario.middleware.js  # Valida o corpo das requisições de usuário
+│   └── validarPost.middleware.js     # Valida o corpo das requisições de post
 ├── schema/
-│   └── usuario.schema.js             # Schema JSON do usuário (AJV)
+│   ├── usuario.schema.js             # Schema JSON do usuário (AJV)
+│   └── post.schema.js                # Schema JSON do post (AJV)
 ├── api.http                          # Exemplos de requisições para teste
 └── package.json
 ```
@@ -133,10 +135,16 @@ Os dados de usuário são validados pelo middleware antes de serem persistidos. 
 
 ## Validação
 
-A rota de usuários utiliza o middleware `validarUsuario`, que valida o corpo da requisição com o schema definido em `schemas/usuario.schema.js` usando a biblioteca [AJV](https://ajv.js.org/). As regras são:
+A validação é feita via middleware usando a biblioteca [AJV](https://ajv.js.org/), com schemas definidos na pasta `schema/`.
 
+**Usuários** (`schema/usuario.schema.js`):
 - `email`: obrigatório, formato de e-mail válido
 - `senha`: obrigatório, string
+- Campos extras não são permitidos (`additionalProperties: false`)
+
+**Posts** (`schema/post.schema.js`):
+- `titulo`: obrigatório, string entre 5 e 100 caracteres
+- `texto`: obrigatório, string
 - Campos extras não são permitidos (`additionalProperties: false`)
 
 ---
