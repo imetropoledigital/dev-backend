@@ -10,8 +10,8 @@
   "author": "Gustavo Leitão",
   "license": "ISC",
   "dependencies": {
-    "ajv": "^8.18.0",
-    "ajv-formats": "^3.0.1",
+    "ajv": "^8.0.5",
+    "ajv-formats": "^2.0.2",
     "express": "^5.2.1",
     "random-words": "^1.1.1",
     "sequelize": "^6.37.8",

@@ -2,7 +2,9 @@
 
 Projeto de exemplo para a disciplina de **Desenvolvimento Backend** do IMD/UFRN.
 
-A aplicação é uma API REST simples construída com **Node.js** e **Express**, utilizando **Sequelize** como ORM e **SQLite** como banco de dados. O objetivo é ilustrar conceitos como roteamento, middlewares, validação de dados, models, migrations e organização de projetos backend.
+A aplicação é uma API REST simples construída com **Node.js** e **Express**, com armazenamento em memória (sem banco de dados). O objetivo é ilustrar conceitos como roteamento, middlewares, validação de dados e organização de projetos backend.
+
+> **Atenção:** por ser um projeto didático, os dados são armazenados apenas em memória. Ao reiniciar o servidor todos os registros são perdidos.
 
 ---
 
@@ -60,10 +62,12 @@ dev-backend/
 ├── rotas/
 │   ├── usuario.rota.js               # Rotas de /usuarios
 │   └── post.rota.js                  # Rotas de /posts
-├── middlewares/
-│   └── validarUsuario.middleware.js  # Valida o corpo das requisições de usuário
-├── schemas/
-│   └── usuario.schema.js             # Schema JSON do usuário (AJV)
+├── middleware/
+│   ├── validarUsuario.middleware.js  # Valida o corpo das requisições de usuário
+│   └── validarPost.middleware.js     # Valida o corpo das requisições de post
+├── schema/
+│   ├── usuario.schema.js             # Schema JSON do usuário (AJV)
+│   └── post.schema.js                # Schema JSON do post (AJV)
 ├── api.http                          # Exemplos de requisições para teste
 └── package.json
 ```
@@ -136,10 +140,16 @@ Os dados de usuário são validados pelo middleware antes de serem persistidos. 
 
 ## Validação
 
-A rota de usuários utiliza o middleware `validarUsuario`, que valida o corpo da requisição com o schema definido em `schemas/usuario.schema.js` usando a biblioteca [AJV](https://ajv.js.org/). As regras são:
+A validação é feita via middleware usando a biblioteca [AJV](https://ajv.js.org/), com schemas definidos na pasta `schema/`.
 
+**Usuários** (`schema/usuario.schema.js`):
 - `email`: obrigatório, formato de e-mail válido
 - `senha`: obrigatório, string
+- Campos extras não são permitidos (`additionalProperties: false`)
+
+**Posts** (`schema/post.schema.js`):
+- `titulo`: obrigatório, string entre 5 e 100 caracteres
+- `texto`: obrigatório, string
 - Campos extras não são permitidos (`additionalProperties: false`)
 
 ---

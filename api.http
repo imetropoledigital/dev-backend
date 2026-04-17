@@ -1,86 +1,67 @@
+### Rota raiz
+
 GET http://localhost:8080/
 
-### ROTAS DE USUÁRIOS
+### Listar todos os usuários
 
 GET http://localhost:8080/usuarios
 
-### 
+### Criar um usuário
 
 POST http://localhost:8080/usuarios
-Content-type: application/json
+Content-Type: application/json
 
 {
-    "email": "someuser@gmail.com",
-    "senha": "changeit"
+    "email": "joao@email.com",
+    "senha": "123456"
 }
 
-### Edita um aluno
+### Buscar usuário por ID
 
-PUT http://localhost:8080/usuarios/?id=[ID USUARIO]
-Content-type: application/json
+GET http://localhost:8080/usuarios/[ID_USUARIO]
+
+### Atualizar um usuário
+
+PUT http://localhost:8080/usuarios/?id=[ID_USUARIO]
+Content-Type: application/json
 
 {
-    "email": "someuser@gmail.com",
-    "senha": "novasenha"
+    "email": "joao.novo@email.com",
+    "senha": "novaSenha"
 }
 
-### Remnover um aluno por ID
+### Deletar um usuário
 
-DELETE http://localhost:8080/usuarios/?id=[ID USUARIO]
+DELETE http://localhost:8080/usuarios/?id=[ID_USUARIO]
 
+### Listar todos os posts
 
-### ROTAS DE POSTAGENS
-
-# Listar todas as postagens
 GET http://localhost:8080/posts
 
-###
+### Criar um post
 
-# Criar uma nova postagem
 POST http://localhost:8080/posts
-Content-type: application/json
+Content-Type: application/json
 
 {
-    "titulo": "Minha primeira postagem",
-    "texto": "Este é o conteúdo da minha primeira postagem no sistema."
+    "titulo": "Meu primeiro post",
+    "texto": "Conteúdo do post aqui."
 }
 
-### Buscar uma postagem pelo ID
-GET http://localhost:8080/posts/[ID DO POST]
+### Buscar post por ID
 
+GET http://localhost:8080/posts/[ID_POST]
 
+### Atualizar um post
 
-# Criar uma postagem com título muito curto (deve retornar erro 400 - validação)
-POST http://localhost:8080/posts
-Content-type: application/json
+PUT http://localhost:8080/posts/?id=[ID_POST]
+Content-Type: application/json
 
 {
-    "titulo": "Oi",
-    "texto": "Título com menos de 5 caracteres deve ser rejeitado pelo middleware."
+    "titulo": "Título atualizado",
+    "texto": "Conteúdo atualizado."
 }
 
-###
+### Deletar um post
 
-# Criar uma postagem sem campo obrigatório (deve retornar erro 400 - validação)
-POST http://localhost:8080/posts
-Content-type: application/json
-
-{
-    "titulo": "Postagem sem texto"
-}
-
-###
-
-# Editar uma postagem existente
-PUT http://localhost:8080/posts/?id=[ID DO POST]
-Content-type: application/json
-
-{
-    "titulo": "Título atualizado da postagem",
-    "texto": "Conteúdo atualizado após a edição."
-}
-
-###
-
-# Deletar uma postagem pelo ID
-DELETE http://localhost:8080/posts/?id=[ID DO POST]
+DELETE http://localhost:8080/posts/?id=[ID_POST]

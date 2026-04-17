@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const rotaUsuario = require('./rotas/usuario.rota')
 const rotaPost = require('./rotas/post.rota')
 
