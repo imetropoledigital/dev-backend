@@ -2,9 +2,7 @@
 
 Projeto de exemplo para a disciplina de **Desenvolvimento Backend** do IMD/UFRN.
 
-A aplicação é uma API REST simples construída com **Node.js** e **Express**, com armazenamento em memória (sem banco de dados). O objetivo é ilustrar conceitos como roteamento, middlewares, validação de dados e organização de projetos backend.
-
-> **Atenção:** por ser um projeto didático, os dados são armazenados apenas em memória. Ao reiniciar o servidor todos os registros são perdidos.
+A aplicação é uma API REST simples construída com **Node.js**, **Express** e **Sequelize** (ORM), usando **SQLite** como banco de dados. O objetivo é ilustrar conceitos como roteamento, middlewares, validação de dados, ORM e organização de projetos backend.
 
 ---
 
@@ -18,6 +16,22 @@ A aplicação é uma API REST simples construída com **Node.js** e **Express**,
 ```bash
 npm install
 ```
+
+## Banco de dados — migrações
+
+O projeto usa **Sequelize** com **SQLite**. Antes de rodar a aplicação pela primeira vez, execute as migrações para criar as tabelas no banco:
+
+```bash
+npx sequelize-cli db:migrate
+```
+
+Para desfazer a última migração:
+
+```bash
+npx sequelize-cli db:migrate:undo
+```
+
+> O arquivo do banco SQLite é gerado automaticamente na pasta `db/` após rodar as migrações.
 
 ## Execução
 
@@ -63,6 +77,16 @@ dev-backend/
 ├── schema/
 │   ├── usuario.schema.js             # Schema JSON do usuário (AJV)
 │   └── post.schema.js                # Schema JSON do post (AJV)
+├── models/
+│   ├── index.js                      # Inicializa o Sequelize e carrega os models
+│   ├── usuario.js                    # Model Sequelize de usuário
+│   └── post.js                       # Model Sequelize de post
+├── migrations/
+│   ├── ...-create-usuario.js         # Cria a tabela Usuarios
+│   └── ...-create-post.js            # Cria a tabela Posts
+├── config/
+│   └── config.json                   # Configuração do banco de dados por ambiente
+├── db/                               # Arquivo SQLite gerado após as migrações
 ├── api.http                          # Exemplos de requisições para teste
 └── package.json
 ```
@@ -154,6 +178,8 @@ A validação é feita via middleware usando a biblioteca [AJV](https://ajv.js.o
 | Pacote | Uso |
 |--------|-----|
 | [express](https://expressjs.com/) | Framework web |
+| [sequelize](https://sequelize.org/) | ORM para acesso ao banco de dados |
+| [sqlite3](https://github.com/TryGhost/node-sqlite3) | Driver SQLite usado pelo Sequelize |
 | [uuid](https://github.com/uuidjs/uuid) | Geração de IDs únicos (UUIDv4) |
 | [ajv](https://ajv.js.org/) + [ajv-formats](https://github.com/ajv-validator/ajv-formats) | Validação de schemas JSON |
 | [nodemon](https://nodemon.io/) *(dev)* | Hot-reload no desenvolvimento |
