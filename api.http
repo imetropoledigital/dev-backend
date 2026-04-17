@@ -1,27 +1,45 @@
+### Rota raiz
+
 GET http://localhost:8080/
 
 ###
 
-GET http://localhost:8080/alunos
+### Listar todos os usuários
 
-### 
+GET http://localhost:8080/usuarios
 
-POST http://localhost:8080/alunos
-Content-type: application/json
+###
+
+### Buscar usuário por ID
+
+GET http://localhost:8080/usuarios/[ID_USUARIO]
+
+###
+
+### Criar um usuário
+
+POST http://localhost:8080/usuarios
+Content-Type: application/json
 
 {
-    "nome": "Pedro"
+    "email": "joao@email.com",
+    "senha": "123456"
 }
 
-### Edita um aluno
+###
 
-PUT http://localhost:8080/alunos/?id=[ID_ALUNO]
-Content-type: application/json
+### Atualizar um usuário
+
+PUT http://localhost:8080/usuarios/?id=[ID_USUARIO]
+Content-Type: application/json
 
 {
-    "nome": "João"
+    "email": "joao.novo@email.com",
+    "senha": "novaSenha"
 }
 
-### Remnover um aluno por ID
+###
 
-DELETE http://localhost:8080/alunos/?id=[ID_ALUNO]
+### Deletar um usuário
+
+DELETE http://localhost:8080/usuarios/?id=[ID_USUARIO]
