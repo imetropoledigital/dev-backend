@@ -1,0 +1,32 @@
+### Listar todos os posts
+
+GET http://localhost:8080/posts
+
+### Criar um post
+
+POST http://localhost:8080/posts
+Content-Type: application/json
+
+{
+    "titulo": "Meu primeiro post",
+    "texto": "Conteúdo do post aqui.",
+    "userId": 1
+}
+
+### Buscar post por ID
+
+GET http://localhost:8080/posts/[ID_POST]
+
+### Atualizar um post
+
+PUT http://localhost:8080/posts/?id=[ID_POST]
+Content-Type: application/json
+
+{
+    "titulo": "Título atualizado",
+    "texto": "Conteúdo atualizado."
+}
+
+### Deletar um post
+
+DELETE http://localhost:8080/posts/?id=[ID_POST]

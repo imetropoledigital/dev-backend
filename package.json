@@ -4,8 +4,8 @@
   "description": "Exemplo de aula da disciplina de desenvolvimento backend",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "author": "Gustavo Leitão",
   "license": "ISC",

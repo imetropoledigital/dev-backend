@@ -17,21 +17,33 @@ A aplicação é uma API REST simples construída com **Node.js**, **Express** e
 npm install
 ```
 
-## Banco de dados — migrações
+## Banco de dados
 
-O projeto usa **Sequelize** com **SQLite**. Antes de rodar a aplicação pela primeira vez, execute as migrações para criar as tabelas no banco:
+O projeto usa **Sequelize** com **SQLite**. Siga a ordem abaixo na primeira execução:
+
+**1. Rodar as migrações** (cria as tabelas no banco):
 
 ```bash
 npx sequelize-cli db:migrate
 ```
 
-Para desfazer a última migração:
+**2. Rodar as seeds** (popula o banco com dados iniciais):
 
 ```bash
-npx sequelize-cli db:migrate:undo
+npx sequelize-cli db:seed:all
 ```
 
-> O arquivo do banco SQLite é gerado automaticamente na pasta `db/` após rodar as migrações.
+Para desfazer:
+
+```bash
+# Desfaz a última migração
+npx sequelize-cli db:migrate:undo
+
+# Desfaz todas as seeds
+npx sequelize-cli db:seed:undo:all
+```
+
+> O arquivo do banco SQLite (`dbend.sqlite`) é gerado automaticamente na pasta `src/db/` após rodar as migrações.
 
 ## Execução
 
@@ -51,15 +63,20 @@ Servidor pronto na porta 8080
 
 ---
 
-## Testando a API com o arquivo `api.http`
+## Testando a API
 
-O arquivo [api.http](api.http) na raiz do projeto contém exemplos prontos de todas as requisições. Para usá-lo você precisa da extensão **REST Client** no VS Code:
+Os exemplos de requisições estão separados por recurso na raiz do projeto:
+
+- [`.usuario.http`](.usuario.http) — rotas de `/usuarios`
+- [`.post.http`](.post.http) — rotas de `/posts`
+
+Para usá-los você precisa da extensão **REST Client** no VS Code:
 
 1. Instale a extensão [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) no VS Code.
-2. Abra o arquivo `api.http`.
+2. Abra um dos arquivos `.http`.
 3. Clique em **"Send Request"** acima de cada bloco para executar a chamada.
 
-> Você também pode importar o arquivo em ferramentas como **Insomnia** ou **Postman** (via importação de coleção HTTP).
+> Você também pode importar os arquivos em ferramentas como **Insomnia** ou **Postman**.
 
 ---
 
@@ -67,27 +84,33 @@ O arquivo [api.http](api.http) na raiz do projeto contém exemplos prontos de to
 
 ```
 dev-backend/
-├── index.js                          # Ponto de entrada — configura e sobe o Express
-├── rotas/
-│   ├── usuario.rota.js               # Rotas de /usuarios
-│   └── post.rota.js                  # Rotas de /posts
-├── middleware/
-│   ├── validarUsuario.middleware.js  # Valida o corpo das requisições de usuário
-│   └── validarPost.middleware.js     # Valida o corpo das requisições de post
-├── schema/
-│   ├── usuario.schema.js             # Schema JSON do usuário (AJV)
-│   └── post.schema.js                # Schema JSON do post (AJV)
-├── models/
-│   ├── index.js                      # Inicializa o Sequelize e carrega os models
-│   ├── usuario.js                    # Model Sequelize de usuário
-│   └── post.js                       # Model Sequelize de post
-├── migrations/
-│   ├── ...-create-usuario.js         # Cria a tabela Usuarios
-│   └── ...-create-post.js            # Cria a tabela Posts
-├── config/
-│   └── config.json                   # Configuração do banco de dados por ambiente
-├── db/                               # Arquivo SQLite gerado após as migrações
-├── api.http                          # Exemplos de requisições para teste
+├── src/
+│   ├── index.js                          # Ponto de entrada — configura e sobe o Express
+│   ├── rotas/
+│   │   ├── usuario.rota.js               # Rotas de /usuarios
+│   │   └── post.rota.js                  # Rotas de /posts
+│   ├── middleware/
+│   │   ├── validarUsuario.middleware.js  # Valida o corpo das requisições de usuário
+│   │   └── validarPost.middleware.js     # Valida o corpo das requisições de post
+│   ├── schema/
+│   │   ├── usuario.schema.js             # Schema JSON do usuário (AJV)
+│   │   └── post.schema.js                # Schema JSON do post (AJV)
+│   └── db/
+│       ├── config/
+│       │   └── config.json               # Configuração do banco por ambiente
+│       ├── models/
+│       │   ├── index.js                  # Inicializa o Sequelize e carrega os models
+│       │   ├── usuario.js                # Model Sequelize de usuário
+│       │   └── post.js                   # Model Sequelize de post (belongsTo Usuario)
+│       ├── migrations/
+│       │   ├── ...-create-usuario.js     # Cria a tabela Usuarios
+│       │   ├── ...-create-post.js        # Cria a tabela Posts
+│       │   └── ...-add-post-belongs-user.js  # Adiciona userId (FK) na tabela Posts
+│       ├── seeders/
+│       │   └── ...-root-user.js          # Seed do usuário root inicial
+│       └── dbend.sqlite                  # Banco SQLite (gerado após db:migrate)
+├── .usuario.http                         # Exemplos de requisições de usuários
+├── .post.http                            # Exemplos de requisições de posts
 └── package.json
 ```
 
@@ -140,6 +163,8 @@ Os dados de usuário são validados pelo middleware antes de serem persistidos. 
 
 ### Posts — `/posts`
 
+Cada post pertence a um usuário (`userId`). O campo `userId` deve corresponder ao `id` de um usuário existente.
+
 | Método | Rota                | Descrição                           |
 |--------|---------------------|-------------------------------------|
 | GET    | `/posts`            | Lista todos os posts cadastrados    |
@@ -147,6 +172,15 @@ Os dados de usuário são validados pelo middleware antes de serem persistidos. 
 | POST   | `/posts`            | Cria um novo post                   |
 | PUT    | `/posts/?id=[ID]`   | Atualiza um post existente pelo ID  |
 | DELETE | `/posts/?id=[ID]`   | Remove um post pelo ID              |
+
+**Corpo esperado no POST e PUT:**
+```json
+{
+  "titulo": "Meu primeiro post",
+  "texto": "Conteúdo do post aqui.",
+  "userId": 1
+}
+```
 
 **Exemplos de resposta:**
 
