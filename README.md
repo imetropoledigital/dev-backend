@@ -19,12 +19,19 @@ npm install
 
 ## Banco de dados
 
-O projeto usa **Sequelize** com **SQLite**. Siga a ordem abaixo na primeira execução:
+O projeto usa **Sequelize** como ORM e suporta dois ambientes com bancos diferentes:
 
-**1. Rodar as migrações** (cria as tabelas no banco):
+| Ambiente | Banco | Configuração |
+|----------|-------|--------------|
+| `development` | SQLite (arquivo local) | `src/db/dbend.sqlite` — criado automaticamente |
+| `production`  | MySQL | Edite `src/db/config/config.json` com usuário, senha e host |
+
+### Desenvolvimento (SQLite)
+
+**1. Rodar as migrações** (cria as tabelas):
 
 ```bash
-npx sequelize-cli db:migrate
+npm run migrate-dev
 ```
 
 **2. Rodar as seeds** (popula o banco com dados iniciais):
@@ -43,16 +50,36 @@ npx sequelize-cli db:migrate:undo
 npx sequelize-cli db:seed:undo:all
 ```
 
-> O arquivo do banco SQLite (`dbend.sqlite`) é gerado automaticamente na pasta `src/db/` após rodar as migrações.
+> O arquivo `dbend.sqlite` é gerado automaticamente na pasta `src/db/` após rodar as migrações.
+
+### Produção (MySQL)
+
+Antes de rodar, certifique-se de que o banco MySQL está criado e atualize as credenciais em `src/db/config/config.json`:
+
+```json
+"production": {
+  "username": "root",
+  "password": "changeme",
+  "database": "dbend",
+  "host": "127.0.0.1",
+  "dialect": "mysql"
+}
+```
+
+Em seguida, rode as migrações no ambiente de produção:
+
+```bash
+npm run migrate-prod
+```
 
 ## Execução
 
 ```bash
-# Execução direta
+# Modo desenvolvimento — SQLite + hot-reload (nodemon)
 npm start
 
-# Modo desenvolvimento com hot-reload (nodemon)
-npm run dev
+# Modo produção — MySQL
+npm run production
 ```
 
 O servidor sobe na porta **8080**. Ao iniciar, você verá a mensagem:
