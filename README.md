@@ -112,33 +112,22 @@ Para usá-los você precisa da extensão **REST Client** no VS Code:
 ```
 dev-backend/
 ├── src/
-│   ├── index.js                          # Ponto de entrada — configura e sobe o Express
-│   ├── rotas/
-│   │   ├── usuario.rota.js               # Rotas de /usuarios
-│   │   └── post.rota.js                  # Rotas de /posts
-│   ├── middleware/
-│   │   ├── validarUsuario.middleware.js  # Valida o corpo das requisições de usuário
-│   │   └── validarPost.middleware.js     # Valida o corpo das requisições de post
-│   ├── schema/
-│   │   ├── usuario.schema.js             # Schema JSON do usuário (AJV)
-│   │   └── post.schema.js                # Schema JSON do post (AJV)
+│   ├── index.js          # Ponto de entrada — configura e sobe o Express
+│   ├── rotas/            # Definição das rotas por recurso
+│   ├── middleware/       # Middlewares de validação de entrada
+│   ├── schema/           # Schemas JSON para validação com AJV
 │   └── db/
-│       ├── config/
-│       │   └── config.json               # Configuração do banco por ambiente
-│       ├── models/
-│       │   ├── index.js                  # Inicializa o Sequelize e carrega os models
-│       │   ├── usuario.js                # Model Sequelize de usuário
-│       │   └── post.js                   # Model Sequelize de post (belongsTo Usuario)
-│       ├── migrations/
-│       │   ├── ...-create-usuario.js     # Cria a tabela Usuarios
-│       │   ├── ...-create-post.js        # Cria a tabela Posts
-│       │   └── ...-add-post-belongs-user.js  # Adiciona userId (FK) na tabela Posts
-│       ├── seeders/
-│       │   └── ...-root-user.js          # Seed do usuário root inicial
-│       └── dbend.sqlite                  # Banco SQLite (gerado após db:migrate)
-├── .usuario.http                         # Exemplos de requisições de usuários
-├── .post.http                            # Exemplos de requisições de posts
-└── package.json
+│       ├── config/       # Configuração do banco por ambiente (SQLite/MySQL)
+│       ├── models/       # Models Sequelize
+│       ├── migrations/   # Migrações do banco de dados
+│       └── seeders/      # Seeds com dados iniciais
+├── views/
+│   ├── layouts/          # Layout base das páginas (express-ejs-layouts)
+│   └── pages/            # Templates EJS de cada página
+├── public/
+│   └── uploads/          # Arquivos enviados via upload
+├── .usuario.http         # Exemplos de requisições de usuários
+└── .post.http            # Exemplos de requisições de posts
 ```
 
 ---
