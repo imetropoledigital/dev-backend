@@ -7,6 +7,8 @@ app.use(express.json())
 
 const PORT = 8080
 
+app.use('/static', express.static('public'))
+
 app.use('/usuarios', rotaUsuario)
 app.use('/posts', rotaPost)
 
