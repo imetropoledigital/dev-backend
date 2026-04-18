@@ -189,6 +189,35 @@ Cada post pertence a um usuário (`userId`). O campo `userId` deve corresponder 
 - Remoção bem-sucedida (`DELETE`): `{ "msg": "Post deletado com sucesso!" }`
 - ID não encontrado (400): `{ "msg": "Post não encontrado!" }`
 
+#### Upload de foto
+
+| Método | Rota                    | Descrição                                      |
+|--------|-------------------------|------------------------------------------------|
+| POST   | `/posts/:id/upload`     | Faz upload de uma foto e associa ao post       |
+
+O upload é feito via `multipart/form-data` com o campo `foto`. Apenas arquivos `.jpg` e `.jpeg` são aceitos. O arquivo é salvo em `public/uploads/` e o caminho é armazenado no campo `foto` do post.
+
+**Exemplo de requisição (REST Client / curl):**
+```
+POST http://localhost:8080/posts/1/upload
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="foto"; filename="imagem.jpg"
+Content-Type: image/jpeg
+
+< ./imagem.jpg
+--boundary--
+```
+
+**Exemplos de resposta:**
+
+- Upload bem-sucedido: `{ "msg": "Upload realizado com sucesso!" }`
+- Post não encontrado (400): `{ "msg": "Post não encontrado!" }`
+- Formato inválido: `Arquivo não suportado. Apenas jpg e jpeg são suportados.`
+
+> Os arquivos enviados ficam acessíveis via `/static/uploads/<nome-do-arquivo>`.
+
 ---
 
 ## Validação
@@ -216,4 +245,5 @@ A validação é feita via middleware usando a biblioteca [AJV](https://ajv.js.o
 | [sqlite3](https://github.com/TryGhost/node-sqlite3) | Driver SQLite usado pelo Sequelize |
 | [uuid](https://github.com/uuidjs/uuid) | Geração de IDs únicos (UUIDv4) |
 | [ajv](https://ajv.js.org/) + [ajv-formats](https://github.com/ajv-validator/ajv-formats) | Validação de schemas JSON |
+| [multer](https://github.com/expressjs/multer) | Upload de arquivos via multipart/form-data |
 | [nodemon](https://nodemon.io/) *(dev)* | Hot-reload no desenvolvimento |
