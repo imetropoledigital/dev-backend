@@ -92,7 +92,15 @@ Servidor pronto na porta 8080
 
 ## Testando a API
 
-Os exemplos de requisições estão separados por recurso na raiz do projeto:
+Com o servidor rodando, a documentação interativa da API está disponível em:
+
+```
+http://localhost:8080/api-docs
+```
+
+A interface Swagger permite visualizar todas as rotas, ver os schemas de entrada e saída e executar chamadas diretamente pelo navegador.
+
+Os exemplos de requisições também estão separados por recurso na raiz do projeto:
 
 - [`.usuario.http`](.usuario.http) — rotas de `/usuarios`
 - [`.post.http`](.post.http) — rotas de `/posts`
@@ -294,6 +302,7 @@ A validação é feita via middleware usando a biblioteca [AJV](https://ajv.js.o
 | [multer](https://github.com/expressjs/multer) | Upload de arquivos via multipart/form-data |
 | [ejs](https://ejs.co/) + [express-ejs-layouts](https://github.com/Soarez/express-ejs-layouts) | Renderização de templates HTML no servidor |
 | [moment](https://momentjs.com/) | Formatação de datas em português |
+| [swagger-ui-express](https://github.com/scottie1984/swagger-ui-express) + [yamljs](https://github.com/jeremyfa/yaml.js) | Documentação interativa da API em `/api-docs` |
 | [bcrypt](https://github.com/kelektiv/node.bcrypt.js) | Hash de senhas |
 | [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) | Geração e verificação de tokens JWT |
 | [winston](https://github.com/winstonjs/winston) | Logging estruturado da aplicação |
