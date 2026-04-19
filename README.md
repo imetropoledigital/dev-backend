@@ -134,11 +134,23 @@ dev-backend/
 
 ## Rotas disponíveis
 
-### Raiz
+O projeto expõe duas interfaces distintas:
 
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET    | `/`  | Verifica se a API está no ar |
+- **Interface web** — rotas na raiz (`/`), renderizam páginas HTML com EJS
+- **API REST** — rotas sob o prefixo `/api`, retornam JSON
+
+### Interface web
+
+| Método | Rota            | Descrição                                    |
+|--------|-----------------|----------------------------------------------|
+| GET    | `/`             | Lista os 10 posts mais recentes              |
+| GET    | `/post/:id`     | Exibe o conteúdo completo de um post         |
+
+### API — Raiz
+
+| Método | Rota   | Descrição                    |
+|--------|--------|------------------------------|
+| GET    | `/api` | Verifica se a API está no ar |
 
 **Resposta:**
 ```json
@@ -147,17 +159,17 @@ dev-backend/
 
 ---
 
-### Usuários — `/usuarios`
+### API — Usuários — `/api/usuarios`
 
 Os dados de usuário são validados pelo middleware antes de serem persistidos. O campo `email` deve ser um e-mail válido e `senha` é obrigatória.
 
-| Método | Rota                   | Descrição                              |
-|--------|------------------------|----------------------------------------|
-| GET    | `/usuarios`            | Lista todos os usuários cadastrados    |
-| GET    | `/usuarios/:id`        | Busca um usuário pelo ID (path param)  |
-| POST   | `/usuarios`            | Cria um novo usuário                   |
-| PUT    | `/usuarios/?id=[ID]`   | Atualiza um usuário existente pelo ID  |
-| DELETE | `/usuarios/?id=[ID]`   | Remove um usuário pelo ID              |
+| Método | Rota                       | Descrição                              |
+|--------|----------------------------|----------------------------------------|
+| GET    | `/api/usuarios`            | Lista todos os usuários cadastrados    |
+| GET    | `/api/usuarios/:id`        | Busca um usuário pelo ID (path param)  |
+| POST   | `/api/usuarios`            | Cria um novo usuário                   |
+| PUT    | `/api/usuarios/?id=[ID]`   | Atualiza um usuário existente pelo ID  |
+| DELETE | `/api/usuarios/?id=[ID]`   | Remove um usuário pelo ID              |
 
 **Corpo esperado no POST e PUT:**
 ```json
@@ -177,17 +189,17 @@ Os dados de usuário são validados pelo middleware antes de serem persistidos. 
 
 ---
 
-### Posts — `/posts`
+### API — Posts — `/api/posts`
 
 Cada post pertence a um usuário (`userId`). O campo `userId` deve corresponder ao `id` de um usuário existente.
 
-| Método | Rota                | Descrição                           |
-|--------|---------------------|-------------------------------------|
-| GET    | `/posts`            | Lista todos os posts cadastrados    |
-| GET    | `/posts/:id`        | Busca um post pelo ID (path param)  |
-| POST   | `/posts`            | Cria um novo post                   |
-| PUT    | `/posts/?id=[ID]`   | Atualiza um post existente pelo ID  |
-| DELETE | `/posts/?id=[ID]`   | Remove um post pelo ID              |
+| Método | Rota                    | Descrição                           |
+|--------|-------------------------|-------------------------------------|
+| GET    | `/api/posts`            | Lista todos os posts cadastrados    |
+| GET    | `/api/posts/:id`        | Busca um post pelo ID (path param)  |
+| POST   | `/api/posts`            | Cria um novo post                   |
+| PUT    | `/api/posts/?id=[ID]`   | Atualiza um post existente pelo ID  |
+| DELETE | `/api/posts/?id=[ID]`   | Remove um post pelo ID              |
 
 **Corpo esperado no POST e PUT:**
 ```json
@@ -207,9 +219,9 @@ Cada post pertence a um usuário (`userId`). O campo `userId` deve corresponder 
 
 #### Upload de foto
 
-| Método | Rota                    | Descrição                                      |
-|--------|-------------------------|------------------------------------------------|
-| POST   | `/posts/:id/upload`     | Faz upload de uma foto e associa ao post       |
+| Método | Rota                        | Descrição                                  |
+|--------|-----------------------------|--------------------------------------------|
+| POST   | `/api/posts/:id/upload`     | Faz upload de uma foto e associa ao post   |
 
 O upload é feito via `multipart/form-data` com o campo `foto`. Apenas arquivos `.jpg` e `.jpeg` são aceitos. O arquivo é salvo em `public/uploads/` e o caminho é armazenado no campo `foto` do post.
 
@@ -262,4 +274,6 @@ A validação é feita via middleware usando a biblioteca [AJV](https://ajv.js.o
 | [uuid](https://github.com/uuidjs/uuid) | Geração de IDs únicos (UUIDv4) |
 | [ajv](https://ajv.js.org/) + [ajv-formats](https://github.com/ajv-validator/ajv-formats) | Validação de schemas JSON |
 | [multer](https://github.com/expressjs/multer) | Upload de arquivos via multipart/form-data |
+| [ejs](https://ejs.co/) + [express-ejs-layouts](https://github.com/Soarez/express-ejs-layouts) | Renderização de templates HTML no servidor |
+| [moment](https://momentjs.com/) | Formatação de datas em português |
 | [nodemon](https://nodemon.io/) *(dev)* | Hot-reload no desenvolvimento |

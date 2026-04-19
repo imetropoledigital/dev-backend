@@ -3,46 +3,25 @@ const rotaUsuario = require('./rotas/usuario.rota')
 const rotaPost = require('./rotas/post.rota')
 const expressLayouts = require('express-ejs-layouts')
 
+const indexRoute = require('./rotas/index.rota')
+
 const PORT = 8080
 
 const app = express()
 app.use(express.json())
-app.set('view engine', 'ejs')
 
+app.set('view engine', 'ejs')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 
 app.use('/static', express.static('public'))
 
-app.use('/usuarios', rotaUsuario)
-app.use('/posts', rotaPost)
+app.use('/', indexRoute);
+app.use('/api/usuarios', rotaUsuario)
+app.use('/api/posts', rotaPost)
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.json({msg: "Hello from Express!"})
-})
-
-app.get('/home', (req, res) => {
-    const number = Math.random()
-    res.render('pages/index', {variavel: number})
-})
-
- app.get('/cursos', (req, res) => {
-    const cursos = [
-            {nome: "Programação frontend", ch: 280}, 
-            {nome: "Programação backend", ch: 330},
-            {nome: "Programação concorrente", ch: 300},
-            {nome: "Programação distribuída", ch: 400}
-    ]
-    res.render('pages/cursos/index', {cursos: cursos})
-})
-
- app.get('/alunos', (req, res) => {
-    const alunos = [
-            {nome: "João Pedro"},
-            {nome: "Fernanda"},
-            {nome: "Francisco"}
-    ]
-    res.render('pages/alunos/index', {alunos: alunos})
 })
 
 const server = app.listen(PORT)
