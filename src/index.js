@@ -5,6 +5,9 @@ const expressLayouts = require('express-ejs-layouts')
 const logMiddleware = require('./middleware/log.mid')
 const indexRoute = require('./rotas/index.rota')
 const logger = require('./utils/logger')
+ const swaggerUi = require('swagger-ui-express');
+ const YAML = require('yamljs');
+ const swaggerDocument = YAML.load('./api.yaml');
 require('dotenv').config()
 
 const PORT = 8080
@@ -13,6 +16,8 @@ const app = express()
 app.use(express.json())
 
 app.use(logMiddleware)
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.set('view engine', 'ejs')
 app.set('layout', 'layouts/layout')

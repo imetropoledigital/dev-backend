@@ -8,6 +8,14 @@ const jwt = require("jsonwebtoken");
 router.post('/', validarUsuario)
 router.put('/', validarUsuario)
 
+function prepararResultado(usuario){
+  const result = Object.assign({}, usuario)
+  if (result.createdAt) delete result.createdAt
+  if (result.updatedAt) delete result.updatedAt
+  if (result.senha) delete result.senha
+  return result
+}
+
 router.post("/login", async (req, res) => {
 
   const email = req.body.email;
@@ -34,18 +42,19 @@ router.post("/login", async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const usuarios = await Usuario.findAll()
-  res.json({ usuarios: usuarios })
-})
+  const usuarios = await Usuario.findAll();
+  const resultado = usuarios.map(user => prepararResultado(user.dataValues))
+  res.json({ usuarios: resultado });
+});
 
 router.get('/:id', async (req, res) => {
-  const usuario = await Usuario.findByPk(req.params.id)
+  const usuario = await Usuario.findByPk(req.params.id);
   if (usuario) {
-    res.json({ usuario: usuario })
+    res.json({ usuario: prepararResultado(usuario.dataValues) });
   } else {
-    res.status(400).json({ msg: "Usuário não encontrado!" })
+    res.status(400).json({ msg: "Usuário não encontrado!" });
   }
-})
+});
 
 router.post("/", async (req, res) => {
   const senha = req.body.senha;

@@ -4,7 +4,7 @@
   "description": "Exemplo de aula da disciplina de desenvolvimento backend",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon --exec node src/index.js",
+    "start": "cross-env NODE_ENV=development nodemon -e yaml,js,json --exec node src/index.js",
     "production": "cross-env NODE_ENV=production node src/index.js",
     "migrate-dev": "cross-env NODE_ENV=development npx sequelize-cli db:migrate",
     "migrate-prod": "cross-env NODE_ENV=production npx sequelize-cli db:migrate"
@@ -27,8 +27,10 @@
     "random-words": "^1.1.1",
     "sequelize": "^6.37.8",
     "sqlite3": "^5.1.7",
+    "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
