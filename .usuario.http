@@ -2,6 +2,16 @@
 
 GET http://localhost:8080/api
 
+### Autentica
+
+POST http://localhost:8080/api/usuarios/login
+Content-Type: application/json
+
+{
+    "email": "newton@gmail.com",
+    "senha": "changeit"
+}
+
 ### Listar todos os usuários
 
 GET http://localhost:8080/api/usuarios
@@ -22,12 +32,12 @@ GET http://localhost:8080/api/usuarios/[ID_USUARIO]
 
 ### Atualizar um usuário
 
-PUT http://localhost:8080/api/usuarios/?id=[ID_USUARIO]
+PUT http://localhost:8080/api/usuarios/?id=3
 Content-Type: application/json
 
 {
-    "email": "joao.novo@email.com",
-    "senha": "novaSenha"
+    "email": "tesla@gmail.com",
+    "senha": "changeit"
 }
 
 ### Deletar um usuário

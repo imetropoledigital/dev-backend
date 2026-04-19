@@ -5,7 +5,7 @@ const expressLayouts = require('express-ejs-layouts')
 const logMiddleware = require('./middleware/log.mid')
 const indexRoute = require('./rotas/index.rota')
 const logger = require('./utils/logger')
-
+require('dotenv').config()
 
 const PORT = 8080
 

@@ -2,10 +2,13 @@
 
 GET http://localhost:8080/api/posts
 
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlzcyI6ImltZC1iYWNrZW5kIiwiYXVkIjoiaW1kLWZyb250ZW5kIiwiZW1haWwiOiJuZXd0b25AZ21haWwuY29tIiwiaWF0IjoxNzc2NTY1MTM1fQ.MWzAVptnaaknyRqvIQe0ucKBAoQUKQfRF6R8ZQ2Ieq0
+
 ### Criar um post
 
 POST http://localhost:8080/api/posts
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
     "titulo": "Meu primeiro post",
