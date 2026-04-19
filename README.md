@@ -162,10 +162,11 @@ O projeto expõe duas interfaces distintas:
 
 ### API — Usuários — `/api/usuarios`
 
-Os dados de usuário são validados pelo middleware antes de serem persistidos. O campo `email` deve ser um e-mail válido e `senha` é obrigatória.
+Os dados de usuário são validados pelo middleware antes de serem persistidos. O campo `email` deve ser um e-mail válido e `senha` é obrigatória. As senhas são armazenadas com hash **bcrypt**.
 
 | Método | Rota                       | Descrição                              |
 |--------|----------------------------|----------------------------------------|
+| POST   | `/api/usuarios/login`      | Autentica e retorna um token JWT       |
 | GET    | `/api/usuarios`            | Lista todos os usuários cadastrados    |
 | GET    | `/api/usuarios/:id`        | Busca um usuário pelo ID (path param)  |
 | POST   | `/api/usuarios`            | Cria um novo usuário                   |
@@ -180,9 +181,23 @@ Os dados de usuário são validados pelo middleware antes de serem persistidos. 
 }
 ```
 
+**Login — corpo esperado e resposta:**
+```json
+// POST /api/usuarios/login
+{ "email": "someuser@gmail.com", "senha": "changeit" }
+
+// Resposta (200)
+{ "accessToken": "<jwt>" }
+
+// Credenciais inválidas (403)
+{ "msg": "usuário ou senha inválidos" }
+```
+
+> O token expira em **60 segundos**. Inclua-o nas rotas protegidas via header `Authorization: Bearer <token>`.
+
 **Exemplos de resposta:**
 
-- Criação bem-sucedida (`POST`): `{ "msg": "Usuário adicionado com sucesso!" }`
+- Criação bem-sucedida (`POST`): `{ "msg": "Usuário adicionado com sucesso!", "userId": 1 }`
 - Atualização bem-sucedida (`PUT`): `{ "msg": "Usuário atualizado com sucesso!" }`
 - Remoção bem-sucedida (`DELETE`): `{ "msg": "Usuário deletado com sucesso!" }`
 - Dados inválidos (400): `{ "msg": "Dados inválidos", "erros": [...] }`
@@ -194,13 +209,15 @@ Os dados de usuário são validados pelo middleware antes de serem persistidos. 
 
 Cada post pertence a um usuário (`userId`). O campo `userId` deve corresponder ao `id` de um usuário existente.
 
-| Método | Rota                    | Descrição                           |
-|--------|-------------------------|-------------------------------------|
-| GET    | `/api/posts`            | Lista todos os posts cadastrados    |
-| GET    | `/api/posts/:id`        | Busca um post pelo ID (path param)  |
-| POST   | `/api/posts`            | Cria um novo post                   |
-| PUT    | `/api/posts/?id=[ID]`   | Atualiza um post existente pelo ID  |
-| DELETE | `/api/posts/?id=[ID]`   | Remove um post pelo ID              |
+Rotas marcadas com 🔒 exigem autenticação via header `Authorization: Bearer <token>`.
+
+| Método | Rota                    | Descrição                               |
+|--------|-------------------------|-----------------------------------------|
+| GET    | `/api/posts`            | Lista todos os posts cadastrados        |
+| GET    | `/api/posts/:id`        | Busca um post pelo ID (path param)      |
+| POST   | `/api/posts`            | 🔒 Cria um novo post                   |
+| PUT    | `/api/posts/?id=[ID]`   | 🔒 Atualiza um post existente pelo ID  |
+| DELETE | `/api/posts/?id=[ID]`   | Remove um post pelo ID                  |
 
 **Corpo esperado no POST e PUT:**
 ```json
@@ -277,5 +294,7 @@ A validação é feita via middleware usando a biblioteca [AJV](https://ajv.js.o
 | [multer](https://github.com/expressjs/multer) | Upload de arquivos via multipart/form-data |
 | [ejs](https://ejs.co/) + [express-ejs-layouts](https://github.com/Soarez/express-ejs-layouts) | Renderização de templates HTML no servidor |
 | [moment](https://momentjs.com/) | Formatação de datas em português |
+| [bcrypt](https://github.com/kelektiv/node.bcrypt.js) | Hash de senhas |
+| [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) | Geração e verificação de tokens JWT |
 | [winston](https://github.com/winstonjs/winston) | Logging estruturado da aplicação |
 | [nodemon](https://nodemon.io/) *(dev)* | Hot-reload no desenvolvimento |
