@@ -116,6 +116,7 @@ dev-backend/
 │   ├── rotas/            # Definição das rotas por recurso
 │   ├── middleware/       # Middlewares de validação de entrada
 │   ├── schema/           # Schemas JSON para validação com AJV
+│   ├── utils/            # Utilitários (ex: configuração do logger Winston)
 │   └── db/
 │       ├── config/       # Configuração do banco por ambiente (SQLite/MySQL)
 │       ├── models/       # Models Sequelize
@@ -276,4 +277,5 @@ A validação é feita via middleware usando a biblioteca [AJV](https://ajv.js.o
 | [multer](https://github.com/expressjs/multer) | Upload de arquivos via multipart/form-data |
 | [ejs](https://ejs.co/) + [express-ejs-layouts](https://github.com/Soarez/express-ejs-layouts) | Renderização de templates HTML no servidor |
 | [moment](https://momentjs.com/) | Formatação de datas em português |
+| [winston](https://github.com/winstonjs/winston) | Logging estruturado da aplicação |
 | [nodemon](https://nodemon.io/) *(dev)* | Hot-reload no desenvolvimento |

@@ -60,8 +60,12 @@ router.post('/', async (req, res) => {
     if (req.file) {
         data.foto = `/static/uploads/${req.file.filename}`
     }
-    const post = await Post.create(data)
-    res.json({ msg: "Post adicionado com sucesso!" })
+    try{
+        const post = await Post.create(data)
+        res.json({msg: "Post adicionado com sucesso!"})
+    }catch (err){
+            next(new ErrorHandler(500, 'Falha interna ao adicionar postagem'))
+    }
 })
 
 router.delete('/', async (req, res) => {

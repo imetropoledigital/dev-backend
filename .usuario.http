@@ -12,8 +12,8 @@ POST http://localhost:8080/api/usuarios
 Content-Type: application/json
 
 {
-    "email": "joao@email.com",
-    "senha": "123456"
+    "email": "newton@gmail.com",
+    "senha": "changeit"
 }
 
 ### Buscar usuário por ID

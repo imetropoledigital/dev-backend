@@ -2,3 +2,5 @@ node_modules
 **/*.sqlite
 public/uploads/*
 !public/uploads/.gitkeep
+logs/*
+!logs/.gitkeep
